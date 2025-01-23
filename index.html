@@ -1,0 +1,97 @@
+<html>
+<head>
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 19180 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+
+<script>
+function OnLoad() {
+	var dots = document.getElementsByTagName('div');
+
+	if (dots.length > 5) {
+		dots[6].parentNode.removeChild(dots[6]);
+		dots[5].parentNode.removeChild(dots[5]);
+	}
+
+for( var i=0, dot, r, t, container=document.getElementById('radar'); i<10; i++) {
+	dot = document.createElement('div');
+  dot.className = "object";
+  r = Math.random()*190+5;
+  t = Math.random()*Math.PI*2;
+  dot.style.left = (200+Math.cos(t)*r)+"px";
+  dot.style.top = (200+Math.sin(t)*r)+"px";
+  dot.style.animationDelay = t/Math.PI/2*5+"s";
+  container.appendChild(dot);
+}
+}
+</script>
+
+<style>
+#radar {
+    position:relative;
+    width:400px;
+    height:400px;
+    margin:20px auto;
+    background-color:#020;
+    background-image:
+      linear-gradient(to right, transparent 199px, #0c0 199px, #0c0 201px, transparent 201px),
+      linear-gradient(to bottom, transparent 199px, #0c0 199px, #0c0 201px, transparent 201px),
+      radial-gradient(circle at center,
+        #0c0 4px, transparent 4px,
+        transparent 49px, #0c0 49px, #0c0 50px, transparent 50px,
+        transparent 99px, #0c0 99px, #0c0 100px, transparent 100px,
+        transparent 149px, #0c0 149px, #0c0 150px, transparent 150px,
+        transparent 198px, #0c0 198px);
+    border-radius:50%;
+}
+#radar>* {position:absolute}
+.beacon {
+    left:50%;
+    top:50%;
+    border-style:solid;
+    border-width:8px 200px 8px 0;
+    border-color:transparent;
+    border-right-color:#0c0;
+    margin-top:-8px;
+    transform-origin:0 50%;
+    animation: spin 5s linear infinite;
+}
+#beacon-75 {opacity: 0.75; animation-delay:0.05s}
+#beacon-50 {opacity: 0.50; animation-delay:0.10s}
+#beacon-25 {opacity: 0.25; animation-delay:0.15s}
+
+.object {
+  width: 8px;
+  height: 8px;
+  margin: -4px;
+  background-color: #0c0;
+  border-radius: 4px;
+  animation: spotted 5s linear infinite both;
+}
+
+@keyframes spin {
+    from {transform:rotate(0)}
+    to {transform:rotate(360deg)}
+}
+@keyframes spotted {
+    from {opacity:0}
+    1% {opacity:1}
+    40% {opacity:0}
+    to {opacity:0}
+}
+</style>
+</head>
+
+<body bgcolor="black" onload="setInterval(function(){OnLoad();}, 5000)">
+
+<div id="radar">
+    <div class="beacon" id="beacon"></div>
+    <div class="beacon" id="beacon-75"></div>
+    <div class="beacon" id="beacon-50"></div>
+    <div class="beacon" id="beacon-25"></div>
+</div>
+</body>
+</html>
+
